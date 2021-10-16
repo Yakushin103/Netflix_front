@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import LogoImage from '../../images/netflix-82871.png'
 import AvatarImage from '../../images/avatar.png'
@@ -22,15 +23,25 @@ const Navbar = () => {
         <div className="left">
           <img src={LogoImage} alt="Logo" />
 
-          <span>HomePage</span>
+          <NavLink to="/" className="link">
+            <span>HomePage</span>
+          </NavLink>
 
-          <span>Series</span>
+          <NavLink to="/series" className="link">
+            <span>Series</span>
+          </NavLink>
 
-          <span>Movies</span>
+          <NavLink to="/movies" className="link">
+            <span>Movies</span>
+          </NavLink>
 
-          <span>New and Popular</span>
+          <NavLink to="/" className="link">
+            <span>New and Popular</span>
+          </NavLink>
 
-          <span>My List</span>
+          <NavLink to="watch" className="link">
+            <span>My List</span>
+          </NavLink>
         </div>
 
         <div className="right">

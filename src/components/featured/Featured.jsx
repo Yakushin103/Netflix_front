@@ -11,13 +11,13 @@ export default function Featured({ type }) {
       {type && (
         <div className="category">
           <span>
-            {type === "movie" ? "Movies" : "Series"}
+            {type === "movies" ? "Movies" : "Series"}
           </span>
           <select className="select" name="genre" id="genre">
             <option>Genre</option>
             {
               selectArrow.map(item => (
-                <option value={item}>
+                <option key={item} value={item}>
                   {item}
                 </option>
               ))
