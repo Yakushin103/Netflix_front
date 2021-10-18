@@ -5,6 +5,8 @@ import Navbar from '../../components/navbar/Navbar'
 import Featured from '../../components/featured/Featured'
 import List from '../../components/list/List'
 
+import { token } from '../../utils/constants'
+
 import './home.scss'
 
 const Home = ({ type }) => {
@@ -12,12 +14,12 @@ const Home = ({ type }) => {
   const [genre, setGenre] = useState(null)
 
   useEffect(() => {
-    const getRandonList = async () => {
+    const getRandomList = async () => {
       try {
         const res = await axios.get(
           `lists${type ? '?type=' + type : ''}${genre ? '&genre=' + genre : ''}`, {
           headers: {
-            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNmFkMmZiNmFlNzNkODdhZTVjMWQ0MSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MzQzOTA5NTIsImV4cCI6MTYzNDgyMjk1Mn0.ATUakv9DOo-5yChoyQ_AiKPWq0YbogPO7Qr7P5c-b2k'
+            token: token
           }
         }
         )
@@ -26,7 +28,7 @@ const Home = ({ type }) => {
         console.log(err)
       }
     }
-    getRandonList()
+    getRandomList()
   }, [type, genre])
 
   return (

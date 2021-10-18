@@ -1,16 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-import NewFilmImage from '../../images/new_film.jpg'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import AddIcon from '@material-ui/icons/Add'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined'
+import NewFilmImage from '../../images/new_film.jpg'
+import { token } from '../../utils/constants'
 
 import './listItem.scss'
 
-export default function ListItem({ index }) {
+export default function ListItem({ index, item }) {
   const [isHovered, setIsHovered] = useState(false)
-  const trailer = "https://youtu.be/ZPUM1L8iwtc"
+  const [movie, setMovie] = useState({})
+
+  useEffect(() => {
+    const getMovie = async () => {
+      try {
+        const res = await axios.get(`/movies/find/${item}`, {
+          headers: {
+            token: token
+          }
+        })
+        setMovie(res.data)
+      } catch (err) {
+        console.log('ERROR', err)
+      }
+    }
+    getMovie()
+  }, [item])
 
   return (
     <div
@@ -55,20 +73,19 @@ export default function ListItem({ index }) {
               </div>
 
               <div className="item-info-top">
-                <span>1 hour 14 mins</span>
+                <span> {movie.duration} </span>
 
-                <span className="limit">+16</span>
+                <span className="limit"> {movie.limit} </span>
 
-                <span>2021</span>
+                <span> {movie.year} </span>
               </div>
 
               <div className="desc">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Facilis nulla ipsam ipsa, totam cumque harum quisquam.
+                {movie.desc}
               </div>
 
               <div className="genre">
-                Action
+                {movie.genre}
               </div>
             </div>
           </>

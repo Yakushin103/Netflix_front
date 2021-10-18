@@ -6,7 +6,7 @@ import ListItem from '../listItem/ListItem'
 
 import './list.scss'
 
-export default function List() {
+export default function List({ list }) {
   const [isMoved, setIsMoved] = useState(false)
   const [slideNumber, setSlideNumber] = useState(0)
 
@@ -29,7 +29,7 @@ export default function List() {
   return (
     <div className="list">
       <span className="list-title">
-        Continue to watch
+        {list.title}
       </span>
 
       <div className="wrapper">
@@ -43,8 +43,12 @@ export default function List() {
 
         <div className="container" ref={listRef}>
           {
-            listArray.map(item => (
-              <ListItem key={item} index={item} />
+            list.content.map((item, i) => (
+              <ListItem
+                key={item}
+                index={i}
+                item={item}
+              />
             ))
           }
         </div>
@@ -57,7 +61,3 @@ export default function List() {
     </div>
   )
 }
-
-const listArray = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-]
