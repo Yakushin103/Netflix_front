@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
@@ -31,66 +32,68 @@ export default function ListItem({ index, item }) {
   }, [item])
 
   return (
-    <div
-      className="listItem"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
-    >
-      <img src={NewFilmImage} alt="New_Film" />
-      {
-        isHovered && (
-          <>
-            {/* <video
+    <NavLink to={{ pathname: "/watch", movie: movie }}>
+      <div
+        className="listItem"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
+      >
+        <img src={NewFilmImage} alt="New_Film" />
+        {
+          isHovered && (
+            <>
+              {/* <video
               src={trailer}
               autoPlay={true}
               loop
             /> */}
 
-            <iframe
-              src="https://www.youtube.com/embed/bZOHmDYCo2I?controls=0"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; 
+              <iframe
+                src="https://www.youtube.com/embed/bZOHmDYCo2I?controls=0"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; 
               autoplay; 
               clipboard-write; 
               encrypted-media; 
               gyroscope; 
               picture-in-picture"
-              allowFullScreen>
+                allowFullScreen>
 
-            </iframe>
+              </iframe>
 
-            <div className="item-info">
-              <div className="icons">
-                <PlayArrowIcon className="icon" />
+              <div className="item-info">
+                <div className="icons">
+                  <PlayArrowIcon className="icon" />
 
-                <AddIcon className="icon" />
+                  <AddIcon className="icon" />
 
-                <ThumbUpAltOutlinedIcon className="icon" />
+                  <ThumbUpAltOutlinedIcon className="icon" />
 
-                <ThumbDownOutlinedIcon className="icon" />
+                  <ThumbDownOutlinedIcon className="icon" />
+                </div>
+
+                <div className="item-info-top">
+                  <span> {movie.duration} </span>
+
+                  <span className="limit"> {movie.limit} </span>
+
+                  <span> {movie.year} </span>
+                </div>
+
+                <div className="desc">
+                  {movie.desc}
+                </div>
+
+                <div className="genre">
+                  {movie.genre}
+                </div>
               </div>
-
-              <div className="item-info-top">
-                <span> {movie.duration} </span>
-
-                <span className="limit"> {movie.limit} </span>
-
-                <span> {movie.year} </span>
-              </div>
-
-              <div className="desc">
-                {movie.desc}
-              </div>
-
-              <div className="genre">
-                {movie.genre}
-              </div>
-            </div>
-          </>
-        )
-      }
-    </div>
+            </>
+          )
+        }
+      </div>
+    </NavLink>
   )
 }

@@ -1,10 +1,14 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import './watch.scss'
 
 export default function Watch() {
+  const location = useLocation()
+
+  console.log('location', location);
+
   return (
     <div className="watch">
       <NavLink to="/" className="link">

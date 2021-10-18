@@ -1,11 +1,33 @@
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import BackgroundImage from '../../images/matrix.jpg'
 import MatrixImage from '../../images/SeekPng.com_matrix-png_2107842.png'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import { token } from '../../utils/constants'
 
 import './featured.scss'
 
 export default function Featured({ type }) {
+  const [content, setContent] = useState({})
+
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const res = await axios.get(`/movies/random?type=${type}`, {
+          headers: {
+            token: token
+          }
+        })
+        setContent(res.data[0])
+      } catch (err) {
+        console.log('ERROR', err);
+      }
+    }
+    getRandomContent()
+  }, [type])
+
   return (
     <div className="featured">
       {type && (
@@ -32,10 +54,7 @@ export default function Featured({ type }) {
         <img src={MatrixImage} alt="Matrix_image" />
 
         <span className="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Tempora, odio corrupti quis quisquam earum voluptatum?
-          Accusamus cumque soluta totam aperiam nemo est sunt,
-          quae minus eveniet natus laborum quaerat quos.
+          {content.desc}
         </span>
 
         <div className="buttons">
